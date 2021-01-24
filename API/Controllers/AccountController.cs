@@ -50,7 +50,12 @@ namespace API.Controllers
             if (user == null) return Unauthorized(" Invalid username or password");
 
             using var hmac = new HMACSHA512(user.PasswordSolt);
-            if (user.PasswordHash != hmac.ComputeHash(Encoding.UTF8.GetBytes(input.Password))) return Unauthorized(" Invalid username or password");
+            var computedPasswordHashThatUserSubmit = hmac.ComputeHash(Encoding.UTF8.GetBytes(input.Password));
+          for (int i = 0; i < computedPasswordHashThatUserSubmit.Length; i++)
+          {
+              if(computedPasswordHashThatUserSubmit[i] != user.PasswordHash[i]) return Unauthorized(" Invalid username or password");
+          }
+         
 
             return new UserDto
             {
