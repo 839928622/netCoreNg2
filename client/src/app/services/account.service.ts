@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IUser } from '../models/user';
@@ -12,7 +14,8 @@ baseUrl = environment.baseUrl;
 private currentUserSource = new ReplaySubject<IUser>(1);
 currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router,
+              private toastr: ToastrService) {
     console.log(this.currentUserSource);
     console.log(this.currentUser$ );
   }
@@ -21,7 +24,10 @@ currentUser$ = this.currentUserSource.asObservable();
       if (response) {
         localStorage.setItem('user', JSON.stringify(response));
         this.currentUserSource.next(response);
+        this.toastr.success('you are logged in, welcome', '');
+        this.router.navigate(['/members']);
       }
+
     }));
   }
 
@@ -44,5 +50,6 @@ return this.http.post(this.baseUrl + 'account/register', model).pipe(
   logout(): void {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
+    this.router.navigateByUrl('/');
   }
 }
