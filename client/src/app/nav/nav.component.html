@@ -34,10 +34,10 @@
         </ul>
       </ng-container>
 
-          <div  class="dropdown" dropdown *ngIf="currentUser$ | async">
+          <div  class="dropdown" dropdown *ngIf="(currentUser$ | async) as user">
             <span class="mr-1"> <img src=""></span>
             <a class="dropdown-toggle text-light"  dropdownToggle>
-              Welcome
+              Welcome {{ user.username }}
             </a>
 
             <div class="dropdown-menu mt-3" *dropdownMenu>
