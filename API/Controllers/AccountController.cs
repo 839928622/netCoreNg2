@@ -32,7 +32,7 @@ namespace API.Controllers
             {
                 Username = input.Username,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(input.Password)),
-                PasswordSolt = hmac.Key
+                PasswordSalt = hmac.Key
             };
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
@@ -49,7 +49,7 @@ namespace API.Controllers
             var user = await _context.Users.SingleOrDefaultAsync(x => x.Username == input.Username);
             if (user == null) return Unauthorized(" Invalid username or password");
 
-            using var hmac = new HMACSHA512(user.PasswordSolt);
+            using var hmac = new HMACSHA512(user.PasswordSalt);
             var computedPasswordHashThatUserSubmit = hmac.ComputeHash(Encoding.UTF8.GetBytes(input.Password));
           for (int i = 0; i < computedPasswordHashThatUserSubmit.Length; i++)
           {
