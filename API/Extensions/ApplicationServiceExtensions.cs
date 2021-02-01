@@ -1,6 +1,8 @@
 ﻿using API.Data;
+using API.Helper;
 using API.Interfaces;
 using API.Services;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +22,8 @@ namespace API.Extensions
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+           
             return services;
         }
     }
