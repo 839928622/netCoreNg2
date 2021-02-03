@@ -3,10 +3,12 @@ using System.Threading.Tasks;
 using API.DTOs.Member;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+
     public class UsersController: BaseApiController
     {
         private readonly IUserRepository _userRepository;

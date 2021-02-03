@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IUser } from '../models/user';
+import { IMember } from '../models/member';
 import { AccountService } from '../services/account.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { AccountService } from '../services/account.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  @Input() userFromHomeComponent: IUser[];
+  @Input() userFromHomeComponent: IMember[];
   @Output() cancelRegister = new EventEmitter();
    model: any = {};
   constructor(private account: AccountService) { }
