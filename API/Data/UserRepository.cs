@@ -7,6 +7,7 @@ using API.Entities;
 using API.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -15,12 +16,14 @@ namespace API.Data
 
     {
         private readonly DataContext _context;
-        private readonly IMapper _mapper;
 
-        public UserRepository(DataContext context, IMapper mapper)
+        private readonly MapsterMapper.IMapper _mapster;
+
+        public UserRepository(DataContext context, MapsterMapper.IMapper mapster)
         {
             _context = context;
-            _mapper = mapper;
+    
+            _mapster = mapster;
         }
         /// <inheritdoc />
         public void Update(AppUser user)
@@ -57,14 +60,15 @@ namespace API.Data
         /// <inheritdoc />
         public async Task<IEnumerable<MemberToReturnDto>> GetMembersAsync()
         {
-            throw new  NotImplementedException();
+            return await _context.Users.AsQueryable()
+                .ProjectToType<MemberToReturnDto>(_mapster.Config).ToListAsync();
         }
 
         /// <inheritdoc />
         public async Task<MemberToReturnDto> GetMemberByUsernameAsync(string username)
         {
             return await _context.Users.Where(x => x.Username == username)
-                .ProjectTo<MemberToReturnDto>(_mapper.ConfigurationProvider)
+                .ProjectToType<MemberToReturnDto>(_mapster.Config)
                 .FirstOrDefaultAsync();
         }
     }

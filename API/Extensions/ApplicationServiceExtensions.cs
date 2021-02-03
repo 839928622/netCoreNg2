@@ -23,7 +23,7 @@ namespace API.Extensions
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddAutoMapper(typeof(AutoMapperProfiles));
+            //services.AddAutoMapper(typeof(AutoMapperProfiles));
 
             services.AddSingleton(MapsterProfile.GetConfiguredMappingConfig());
             services.AddScoped<MapsterMapper.IMapper, ServiceMapper>();
