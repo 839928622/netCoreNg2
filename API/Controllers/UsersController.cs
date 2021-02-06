@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using API.DTOs.Member;
 using API.Interfaces;
@@ -23,7 +24,7 @@ namespace API.Controllers
             _mapster = mapster;
         }
 
-        [HttpGet]
+        [HttpGet("GetUsers")]
         public async Task<ActionResult<IEnumerable<MemberToReturnDto>>> GetUsers()
         {
             //var users = await _userRepository.GetUserAsync();
@@ -31,11 +32,22 @@ namespace API.Controllers
             return Ok(await _userRepository.GetMembersAsync());
         }
 
-        [HttpGet("{username}")]
+        [HttpGet("GetUser/{username}")]
         public async Task<ActionResult<MemberToReturnDto>> GetUser(string username)
         {
             var user = await _userRepository.GetUserByUsernameAsync(username);
             return _mapster.Map<MemberToReturnDto>(user);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateUser(MemberUpdateDto model)
+        {
+            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = await _userRepository.GetUserByUsernameAsync(username);
+            _mapster.Map(model, user);
+            _userRepository.Update(user);
+            if (await _userRepository.SaveAllAsync()) return NoContent();
+            return BadRequest("Fail to update user");
         }
     }
 }

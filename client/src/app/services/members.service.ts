@@ -24,4 +24,8 @@ export class MembersService {
   getMember(username): Observable<IMember>{
     return this.http.get<IMember>(this.baseUrl + 'users/GetUser/' + username);
   }
+
+  updateMember(member: IMember): Observable<unknown> {
+    return this.http.put(this.baseUrl + 'users', member);
+  }
 }

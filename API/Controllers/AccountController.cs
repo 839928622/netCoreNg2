@@ -51,9 +51,9 @@ namespace API.Controllers
 
             using var hmac = new HMACSHA512(user.PasswordSalt);
             var computedPasswordHashThatUserSubmit = hmac.ComputeHash(Encoding.UTF8.GetBytes(input.Password));
-          for (int i = 0; i < computedPasswordHashThatUserSubmit.Length; i++)
+          if (computedPasswordHashThatUserSubmit.Where((t, i) => t != user.PasswordHash[i]).Any())
           {
-              if(computedPasswordHashThatUserSubmit[i] != user.PasswordHash[i]) return Unauthorized(" Invalid username or password");
+              return Unauthorized(" Invalid username or password");
           }
          
 

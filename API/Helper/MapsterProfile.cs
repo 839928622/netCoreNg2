@@ -38,7 +38,7 @@ namespace API.Helper
                 .Map(desc=> desc.MainPhotoUrl, src => src.Photos.FirstOrDefault(x => x.IsMain).Url)
                 .Map(desc => desc.Age, src => src.DateOfBirth.CalculateAge());
             config.NewConfig<Photo, PhotoDto>();
-
+            config.NewConfig<MemberUpdateDto, AppUser>();
             return config;
         }
     }
