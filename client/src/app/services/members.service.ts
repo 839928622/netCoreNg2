@@ -22,6 +22,6 @@ export class MembersService {
   }
 
   getMember(username): Observable<IMember>{
-    return this.http.get<IMember>(this.baseUrl + 'users/' + username);
+    return this.http.get<IMember>(this.baseUrl + 'users/GetUser/' + username);
   }
 }

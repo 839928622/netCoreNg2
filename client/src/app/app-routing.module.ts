@@ -11,7 +11,8 @@ import { MessagesComponent } from './messages/messages.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent}, {path: 'members', component: MemberListComponent, canActivate: [AuthGuard]},
-  {path: '', runGuardsAndResolvers: 'always', canActivate: [AuthGuard], children: [{path: 'members/:id', component: MemberDetailComponent},
+  {path: '', runGuardsAndResolvers: 'always', canActivate: [AuthGuard],
+  children: [{path: 'member/:username', component: MemberDetailComponent},
    {path: 'lists', component: ListsComponent},
   {path: 'messages', component: MessagesComponent}, ]},
   {path: 'not-found', component: NotFoundComponent},

@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } fro
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IMember } from '../models/member';
+import { IUser } from '../models/user';
 import { AccountService } from '../services/account.service';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.account.currentUser$.pipe(map((user: IMember) => {
+    return this.account.currentUser$.pipe(map((user: IUser) => {
       if (user) { return true; }
       this.toastr.error('You are not allowed to pass!');
       return false;
