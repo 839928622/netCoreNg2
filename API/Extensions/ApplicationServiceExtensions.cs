@@ -28,6 +28,8 @@ namespace API.Extensions
             services.AddSingleton(MapsterProfile.GetConfiguredMappingConfig());
             services.AddScoped<MapsterMapper.IMapper, ServiceMapper>();
 
+            services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
+            services.AddScoped<IPhotoService, PhotoService>();
             return services;
         }
     }
