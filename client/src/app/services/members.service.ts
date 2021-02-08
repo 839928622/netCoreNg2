@@ -28,4 +28,12 @@ export class MembersService {
   updateMember(member: IMember): Observable<unknown> {
     return this.http.put(this.baseUrl + 'users', member);
   }
+
+  setMainPhoto(photoId: number): Observable<object>{
+    return this.http.put(this.baseUrl + 'users/set-main-photo/' + photoId, {});
+  }
+
+  deletePhoto(photoId: number): Observable<object> {
+    return this.http.delete(this.baseUrl + 'users/delete-photo/' + photoId);
+  }
 }

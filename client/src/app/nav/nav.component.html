@@ -35,7 +35,7 @@
       </ng-container>
 
           <div  class="dropdown" dropdown *ngIf="(currentUser$ | async) as user">
-            <span class="mr-1"> <img src=""></span>
+            <span class="mr-1"> <img src="{{user.mainPhotoUrl}}" alt="{{user.username}}"></span>
             <a class="dropdown-toggle text-light"  dropdownToggle>
               Welcome {{ user.username }}
             </a>

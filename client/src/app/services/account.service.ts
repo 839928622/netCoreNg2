@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { IMember } from '../models/member';
 import { IUser } from '../models/user';
 import { environment } from './../../environments/environment';
 @Injectable({
@@ -23,8 +22,9 @@ currentUser$ = this.currentUserSource.asObservable();
   login(model: any): Observable<void> {
     return this.http.post<IUser>(this.baseUrl + 'account/login', model).pipe( map( (response: IUser) => {
       if (response) {
-        localStorage.setItem('user', JSON.stringify(response));
-        this.currentUserSource.next(response);
+        // localStorage.setItem('user', JSON.stringify(response));
+        // this.currentUserSource.next(response);
+        this.setCurrentUser(response);
         this.toastr.success('you are logged in, welcome', '');
         this.router.navigate(['/members']);
       }
@@ -36,8 +36,8 @@ currentUser$ = this.currentUserSource.asObservable();
 return this.http.post(this.baseUrl + 'account/register', model).pipe(
   map((user: IUser) => {
     if (user){
-      localStorage.setItem('user', JSON.stringify(user));
-      this.currentUserSource.next(user);
+
+      this.setCurrentUser(user);
 
     }
   })
@@ -45,6 +45,7 @@ return this.http.post(this.baseUrl + 'account/register', model).pipe(
   }
 
   setCurrentUser(user: IUser): void {
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }
 
