@@ -26,7 +26,7 @@ currentUser$ = this.currentUserSource.asObservable();
         // this.currentUserSource.next(response);
         this.setCurrentUser(response);
         this.toastr.success('you are logged in, welcome', '');
-        this.router.navigate(['/members']);
+        this.router.navigateByUrl('/members');
       }
 
     }));

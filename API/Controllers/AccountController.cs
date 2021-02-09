@@ -8,6 +8,7 @@ using API.Data;
 using API.DTOs.Account;
 using API.Entities;
 using API.Interfaces;
+using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,23 +18,30 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
+        private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public AccountController(DataContext context, ITokenService tokenService)
+        public AccountController(DataContext context, ITokenService tokenService, IUserRepository userRepository,
+                                 IMapper mapper)
         {
             _context = context;
             _tokenService = tokenService;
+            _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto input)
         {
+            var existUser = await _userRepository.GetUserByUsernameAsync(input.Username);
+            if (existUser != null) return BadRequest("Username is taken");
+            var user = _mapper.Map<AppUser>(input);
             using var hmac = new HMACSHA512();
-            var user = new AppUser()
-            {
-                Username = input.Username,
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(input.Password)),
-                PasswordSalt = hmac.Key
-            };
+
+            user.Username = input.Username;
+            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(input.Password));
+            user.PasswordSalt = hmac.Key;
+           
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
             return new UserDto

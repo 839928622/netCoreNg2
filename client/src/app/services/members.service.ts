@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { IMember } from '../models/member';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user')).token
-  })
-};
+// const httpOptions = {
+//   headers: new HttpHeaders({
+//     Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user')).token
+//   })
+// };
 
 @Injectable({
   providedIn: 'root'

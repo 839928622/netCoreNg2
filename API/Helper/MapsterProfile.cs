@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using API.DTOs.Account;
 using API.DTOs.Member;
 using API.DTOs.Photo;
 using API.Entities;
@@ -35,10 +36,11 @@ namespace API.Helper
             //    .Map(dest => dest.TitleDto, src => src.Title)
             //.Map(dest => dest.EnrollmentsDto, src => src.Enrollments);
             config.NewConfig<AppUser, MemberToReturnDto>()
-                .Map(desc=> desc.MainPhotoUrl, src => src.Photos.FirstOrDefault(x => x.IsMain).Url)
+                .Map(desc=> desc.MainPhotoUrl, src => src.Photos.Any(x => x.IsMain) ? src.Photos.FirstOrDefault(x => x.IsMain).Url : "")
                 .Map(desc => desc.Age, src => src.DateOfBirth.CalculateAge());
             config.NewConfig<Photo, PhotoDto>();
             config.NewConfig<MemberUpdateDto, AppUser>();
+            config.NewConfig<RegisterDto, AppUser>();
             return config;
         }
     }

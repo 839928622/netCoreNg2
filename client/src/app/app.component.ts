@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IUser } from './models/user';
 import { AccountService } from './services/account.service';
 
@@ -9,7 +10,7 @@ import { AccountService } from './services/account.service';
 })
 export class AppComponent implements OnInit {
   title = 'client';
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService, private router: Router) {}
   ngOnInit(): void {
     this.setCurrentUser();
   }
@@ -17,6 +18,8 @@ export class AppComponent implements OnInit {
   setCurrentUser(): void {
     const user: IUser = JSON.parse(localStorage.getItem('user'));
     this.accountService.setCurrentUser(user);
+
+
   }
 
 }
