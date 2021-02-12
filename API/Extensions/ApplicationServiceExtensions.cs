@@ -23,13 +23,16 @@ namespace API.Extensions
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IUserRepository, UserRepository>();
-            //services.AddAutoMapper(typeof(AutoMapperProfiles));
-
+            // auto mapper
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
+            // mapster
             services.AddSingleton(MapsterProfile.GetConfiguredMappingConfig());
             services.AddScoped<MapsterMapper.IMapper, ServiceMapper>();
 
             services.Configure<CloudinarySettings>(configuration.GetSection("CloudinarySettings"));
             services.AddScoped<IPhotoService, PhotoService>();
+
+            services.AddScoped<LogUserActivity>();
             return services;
         }
     }

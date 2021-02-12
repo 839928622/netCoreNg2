@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs.Member;
 using API.Entities;
+using API.Helper;
 using API.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -18,12 +19,14 @@ namespace API.Data
         private readonly DataContext _context;
 
         private readonly MapsterMapper.IMapper _mapster;
+        private readonly IMapper _autoMapper;
 
-        public UserRepository(DataContext context, MapsterMapper.IMapper mapster)
+        public UserRepository(DataContext context, MapsterMapper.IMapper mapster, IMapper autoMapper)
         {
             _context = context;
     
             _mapster = mapster;
+            _autoMapper = autoMapper;
         }
         /// <inheritdoc />
         public void Update(AppUser user)
@@ -58,10 +61,25 @@ namespace API.Data
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<MemberToReturnDto>> GetMembersAsync()
+        public async Task<PagedList<MemberToReturnDto>> GetMembersAsync(MemberFilter request)
         {
-            return await _context.Users.AsQueryable()
-                .ProjectToType<MemberToReturnDto>(_mapster.Config).ToListAsync();
+            var minDateOfBirth = DateTimeOffset.Now.AddYears(-request.MaxAge - 1);
+            var maxDateOfBirth = DateTimeOffset.Now.AddYears(-request.MinAge);
+            var query = _context.Users.Where(x => x.Username != request.CurrentUsername
+                                                  && x.Gender == request.Gender
+           && x.DateOfBirth >= minDateOfBirth && x.DateOfBirth <= maxDateOfBirth);
+            query = request.OrderBy switch
+            {
+                "created" => query.OrderByDescending(x => x.Created),
+               
+                _ => query.OrderByDescending(u => u.LastActive)
+            };
+
+
+            return await PagedList<MemberToReturnDto>
+               .CreateAsync(query.ProjectTo<MemberToReturnDto>(_autoMapper.ConfigurationProvider).AsNoTracking(),
+               request.PageNumber, request.PageSize);
+
         }
 
         /// <inheritdoc />

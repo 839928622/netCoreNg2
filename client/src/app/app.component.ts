@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IUser } from './models/user';
 import { AccountService } from './services/account.service';
+import { TimeagoIntl } from 'ngx-timeago';
+import {strings as cnStrings} from 'ngx-timeago/language-strings/zh-CN';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,10 @@ import { AccountService } from './services/account.service';
 })
 export class AppComponent implements OnInit {
   title = 'client';
-  constructor(private accountService: AccountService, private router: Router) {}
+  constructor(private accountService: AccountService, private router: Router, timeago: TimeagoIntl) {
+    timeago.strings = cnStrings;
+    timeago.changes.next();
+  }
   ngOnInit(): void {
     this.setCurrentUser();
   }

@@ -1,8 +1,11 @@
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { IMember } from '../models/member';
+import { PaginatedResult } from '../models/IPagination';
+import { map } from 'rxjs/operators';
+import { MemberFilter } from '../models/memberFilter';
 
 // const httpOptions = {
 //   headers: new HttpHeaders({
@@ -15,12 +18,37 @@ import { IMember } from '../models/member';
 })
 export class MembersService {
   baseUrl = environment.baseUrl;
+  paginationResult: PaginatedResult<IMember[]> = new  PaginatedResult<IMember[]>();
   constructor(private http: HttpClient) { }
 
-  getMembers(): Observable<IMember[]> {
-    return this.http.get<IMember[]>(this.baseUrl + 'users/getUsers');
+  getMembers(memberFilter: MemberFilter): Observable<PaginatedResult<IMember[]>> {
+     let params = this.producePaginationHeaders(memberFilter.pageNumber, memberFilter.pageSize);
+
+     params = params.append('maxAge', memberFilter.maxAge.toString());
+     params = params.append('minAge', memberFilter.minAge.toString());
+     params = params.append('orderBy', memberFilter.orderBy);
+     if (memberFilter.gender) {
+      params = params.append('gender', memberFilter.gender);
+     }
+
+     return this.http.get<IMember[]>(this.baseUrl + 'users/getUsers', {observe: 'response', params}).pipe(
+      map(response => {
+        this.paginationResult.result = response.body;
+        if (response.headers.get('Pagination') !== null) {
+          this.paginationResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return this.paginationResult;
+      })
+    );
   }
 
+  private producePaginationHeaders(pageNumber: number, pageSize: number): HttpParams {
+    let params = new HttpParams();
+      // params.append('pageNumber', pageNumber.toString()); == http://localhost/users?pageNumber=pageNumber
+    params = params.append('pageNumber', pageNumber.toString());
+    params = params.append('pageSize', pageSize.toString());
+    return params;
+  }
   getMember(username): Observable<IMember>{
     return this.http.get<IMember>(this.baseUrl + 'users/GetUser/' + username);
   }

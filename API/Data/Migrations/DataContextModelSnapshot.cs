@@ -28,11 +28,11 @@ namespace API.Data.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("TEXT");
+                    b.Property<long>("Created")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<DateTimeOffset>("DateOfBirth")
-                        .HasColumnType("TEXT");
+                    b.Property<long>("DateOfBirth")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Gender")
                         .HasColumnType("TEXT");
@@ -46,8 +46,8 @@ namespace API.Data.Migrations
                     b.Property<string>("KnownAs")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTimeOffset>("LastActive")
-                        .HasColumnType("TEXT");
+                    b.Property<long>("LastActive")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("LookingFor")
                         .HasColumnType("TEXT");

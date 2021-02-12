@@ -6,6 +6,7 @@ using API.DTOs.Member;
 using API.DTOs.Photo;
 using API.Entities;
 using API.Extensions;
+using API.Helper;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -33,11 +34,19 @@ namespace API.Controllers
         }
 
         [HttpGet("GetUsers")]
-        public async Task<ActionResult<IEnumerable<MemberToReturnDto>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberToReturnDto>>> GetUsers([FromQuery] MemberFilter request)
         {
-            //var users = await _userRepository.GetUserAsync();
-            //return Ok(_mapper.Map<IEnumerable<MemberToReturnDto>>(users));
-            return Ok(await _userRepository.GetMembersAsync());
+            var currentUser = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            request.CurrentUsername = currentUser.Username;
+            if (string.IsNullOrEmpty(request.Gender))
+            {
+                request.Gender = currentUser.Gender == "male" ? "female" : "male";
+            }
+
+            var users = await _userRepository.GetMembersAsync(request);
+
+            Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPage);
+            return Ok(users);
         }
 
         [HttpGet("GetUser/{username}",Name = "GetUser")]

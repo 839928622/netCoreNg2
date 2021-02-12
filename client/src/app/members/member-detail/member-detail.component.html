@@ -17,12 +17,12 @@
 
         <div>
           <strong>Last Active:</strong>
-          <p>{{member.lastActive}}</p>
+          <p>{{member.lastActive | timeago}}</p>
         </div>
 
         <div>
           <strong>Member since:</strong>
-          <p>{{member.created}}</p>
+          <p>{{member.created | date: 'yyyy-MM-dd HH:mm:ss'}}</p>
         </div>
 
       </div>
