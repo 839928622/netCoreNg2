@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using API.DTOs.Account;
 using API.DTOs.Member;
+using API.DTOs.Message;
 using API.DTOs.Photo;
 using API.Entities;
 using API.Extensions;
@@ -41,6 +42,9 @@ namespace API.Helper
             config.NewConfig<Photo, PhotoDto>();
             config.NewConfig<MemberUpdateDto, AppUser>();
             config.NewConfig<RegisterDto, AppUser>();
+            config.NewConfig<Message, MessageDto>()
+                .Map(dest => dest.SenderMainPhotoUrl, src => src.Sender.Photos.Any(x => x.IsMain) ? src.Sender.Photos.FirstOrDefault(x => x.IsMain).Url : "")
+                .Map(dest => dest.RecipientMainPhotoUrl, src => src.Recipient.Photos.Any(x => x.IsMain) ? src.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url : "");
             return config;
         }
     }

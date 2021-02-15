@@ -25,6 +25,7 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { deLocale } from 'ngx-bootstrap/locale';
 import { TimeagoIntl } from 'ngx-timeago';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 defineLocale('bg', deLocale);
 
 
@@ -43,6 +44,7 @@ defineLocale('bg', deLocale);
     MemberCardComponent,
     MemberEditComponent,
     PhotoEditorComponent,
+    MemberMessagesComponent,
   ],
   imports: [
     BrowserModule,

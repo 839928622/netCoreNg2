@@ -13,7 +13,7 @@ namespace API.DTOs.Like
 
         public string KnownAs { get; set; }
 
-        public string PhotoUrl { get; set; }
+        public string MainPhotoUrl { get; set; }
         public string City { get; set; }
     }
 }

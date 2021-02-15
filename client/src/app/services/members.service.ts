@@ -1,10 +1,10 @@
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { IMember } from '../models/member';
-import { PaginatedResult } from '../models/IPagination';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { PaginatedResult } from '../models/IPagination';
+import { IMember } from '../models/member';
 import { MemberFilter } from '../models/memberFilter';
 
 // const httpOptions = {
@@ -63,5 +63,13 @@ export class MembersService {
 
   deletePhoto(photoId: number): Observable<object> {
     return this.http.delete(this.baseUrl + 'users/delete-photo/' + photoId);
+  }
+
+  addLike(username: string): Observable<object> {
+    return this.http.post(this.baseUrl + 'like/' + username, {});
+  }
+
+  getLikes(predicate: string): Observable<Partial<IMember[]>>{
+    return this.http.get<Partial<IMember[]>>(this.baseUrl + 'like?predicate=' + predicate);
   }
 }
