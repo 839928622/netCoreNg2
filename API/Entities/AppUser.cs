@@ -1,18 +1,16 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Permissions;
-using API.Extensions;
+using Microsoft.AspNetCore.Identity;
 
 namespace API.Entities
 {
-    public class AppUser
+    public class AppUser: IdentityUser<int>
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
+      //  public int Id { get; set; }
+      //  public string Username { get; set; }
         
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
+      //public  byte[] PasswordHash { get; set; }
+      //  public byte[] PasswordSalt { get; set; }
         public DateTimeOffset DateOfBirth { get; set; }
         public string KnownAs { get; set; }
         /// <summary>
@@ -34,6 +32,7 @@ namespace API.Entities
 
         public ICollection<Message> MessagesSent { get; set; }
         public ICollection<Message> MessagesReceived { get; set; }
-
+        // each user can be multi role , each role can contains multi user
+        public ICollection<AppUserRole> UserRoles { get; set; }
     }
 }

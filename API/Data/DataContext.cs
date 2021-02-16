@@ -1,18 +1,21 @@
 using System;
 using System.Linq;
 using API.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Data
 {
-  public class DataContext : DbContext
+  public class DataContext : IdentityDbContext<AppUser,AppRole,int, IdentityUserClaim<int>, AppUserRole, IdentityUserLogin<int>, IdentityRoleClaim<int>,
+       IdentityUserToken<int>>
   {
     public DataContext(DbContextOptions options) : base(options)
     {
 
     }
-    public DbSet<AppUser> Users { get; set; }
+    //public DbSet<AppUser> Users { get; set; }
     public DbSet<UserLike> Likes { get; set; }
 
     public DbSet<Message> Message { get; set; }
@@ -61,8 +64,15 @@ namespace API.Data
                                           .WithMany(m => m.MessagesSent)
                                           .OnDelete(DeleteBehavior.Restrict);
 
+            // AppUser
+            modelBuilder.Entity<AppUser>().HasMany(ur => ur.UserRoles).WithOne(u => u.AppUser)
+                .HasForeignKey(ur => ur.UserId).IsRequired();
+            // AppRole
+            modelBuilder.Entity<AppRole>().HasMany(ur => ur.UserRoles).WithOne(u => u.Role)
+                .HasForeignKey(ur => ur.RoleId).IsRequired();
 
 
-        }
+
+    }
   }
 }

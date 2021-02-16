@@ -37,7 +37,7 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<MemberToReturnDto>>> GetUsers([FromQuery] MemberFilter request)
         {
             var currentUser = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
-            request.CurrentUsername = currentUser.Username;
+            request.CurrentUsername = currentUser.UserName;
             if (string.IsNullOrEmpty(request.Gender))
             {
                 request.Gender = currentUser.Gender == "male" ? "female" : "male";
@@ -90,7 +90,7 @@ namespace API.Controllers
             if ( await _userRepository.SaveAllAsync())
             {
                 //return _mapster.Map<PhotoDto>(photo);
-                return CreatedAtRoute("GetUser",new {username = user.Username}, _mapster.Map<PhotoDto>(photo));
+                return CreatedAtRoute("GetUser",new {username = user.UserName }, _mapster.Map<PhotoDto>(photo));
             }
 
             return BadRequest("An error occurred during adding photo(s)");

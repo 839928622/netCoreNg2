@@ -57,7 +57,7 @@ namespace API.Data
         /// <inheritdoc />
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
-            return await _context.Users.Include(p => p.Photos).SingleOrDefaultAsync(x => x.Username == username);
+            return await _context.Users.Include(p => p.Photos).SingleOrDefaultAsync(x => x.UserName == username);
         }
 
         /// <inheritdoc />
@@ -65,7 +65,7 @@ namespace API.Data
         {
             var minDateOfBirth = DateTimeOffset.Now.AddYears(-request.MaxAge - 1);
             var maxDateOfBirth = DateTimeOffset.Now.AddYears(-request.MinAge);
-            var query = _context.Users.Where(x => x.Username != request.CurrentUsername
+            var query = _context.Users.Where(x => x.UserName != request.CurrentUsername
                                                   && x.Gender == request.Gender
            && x.DateOfBirth >= minDateOfBirth && x.DateOfBirth <= maxDateOfBirth);
             query = request.OrderBy switch
@@ -85,7 +85,7 @@ namespace API.Data
         /// <inheritdoc />
         public async Task<MemberToReturnDto> GetMemberByUsernameAsync(string username)
         {
-            return await _context.Users.Where(x => x.Username == username)
+            return await _context.Users.Where(x => x.UserName == username)
                 .ProjectToType<MemberToReturnDto>(_mapster.Config)
                 .FirstOrDefaultAsync();
         }

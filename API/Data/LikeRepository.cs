@@ -63,7 +63,7 @@ namespace API.Data
 
             return await users.Select(user => new LikeDto()
             {
-                 Username = user.Username,
+                 Username = user.UserName,
                  KnownAs = user.KnownAs,
                  Age = user.DateOfBirth.CalculateAge(),
                  MainPhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain).Url,
