@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "~11.0.6",
     "@angular/router": "~11.0.6",
     "@kolkov/ngx-gallery": "^1.2.3",
+    "@microsoft/signalr": "^5.0.3",
     "bootstrap": "4.1.1",
     "font-awesome": "^4.7.0",
     "ng2-file-upload": "^1.4.0",

@@ -6,6 +6,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { IUser } from '../models/user';
 import { environment } from './../../environments/environment';
+import { PresenceService } from './presence.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +16,7 @@ private currentUserSource = new ReplaySubject<IUser>(1);
 currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient, private router: Router,
-              private toastr: ToastrService) {
+              private toastr: ToastrService, private presenceService: PresenceService) {
     console.log(this.currentUserSource);
     console.log(this.currentUser$ );
   }
@@ -26,6 +27,7 @@ currentUser$ = this.currentUserSource.asObservable();
         // this.currentUserSource.next(response);
         this.setCurrentUser(response);
         this.toastr.success('you are logged in, welcome', '');
+        this.presenceService.createHubConnection(response);
         this.router.navigateByUrl('/members');
       }
 
@@ -38,7 +40,7 @@ return this.http.post(this.baseUrl + 'account/register', model).pipe(
     if (user){
 
       this.setCurrentUser(user);
-
+      this.presenceService.createHubConnection(user);
     }
   })
 );
@@ -56,6 +58,7 @@ return this.http.post(this.baseUrl + 'account/register', model).pipe(
   logout(): void {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
+    this.presenceService.stopHubConnection();
     this.router.navigateByUrl('/');
   }
 

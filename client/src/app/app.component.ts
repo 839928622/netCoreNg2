@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TimeagoIntl } from 'ngx-timeago';
+import { strings as cnStrings } from 'ngx-timeago/language-strings/zh-CN';
 import { IUser } from './models/user';
 import { AccountService } from './services/account.service';
-import { TimeagoIntl } from 'ngx-timeago';
-import {strings as cnStrings} from 'ngx-timeago/language-strings/zh-CN';
+import { PresenceService } from './services/presence.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,8 @@ import {strings as cnStrings} from 'ngx-timeago/language-strings/zh-CN';
 })
 export class AppComponent implements OnInit {
   title = 'client';
-  constructor(private accountService: AccountService, private router: Router, timeago: TimeagoIntl) {
+  constructor(private accountService: AccountService, private router: Router, timeago: TimeagoIntl,
+              private presenceService: PresenceService) {
     timeago.strings = cnStrings;
     timeago.changes.next();
   }
@@ -22,7 +24,10 @@ export class AppComponent implements OnInit {
 
   setCurrentUser(): void {
     const user: IUser = JSON.parse(localStorage.getItem('user'));
-    this.accountService.setCurrentUser(user);
+    if (user) {
+      this.accountService.setCurrentUser(user);
+      this.presenceService.createHubConnection(user);
+    }
 
 
   }
