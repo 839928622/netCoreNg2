@@ -45,7 +45,11 @@ return this.http.post(this.baseUrl + 'account/register', model).pipe(
   }
 
   setCurrentUser(user: IUser): void {
+
+    const roles = this.getDecodedToken(user.token).role;
+    Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
     localStorage.setItem('user', JSON.stringify(user));
+    console.log(user);
     this.currentUserSource.next(user);
   }
 
@@ -54,4 +58,10 @@ return this.http.post(this.baseUrl + 'account/register', model).pipe(
     this.currentUserSource.next(null);
     this.router.navigateByUrl('/');
   }
-}
+
+  getDecodedToken(token: string): any
+  {
+    return JSON.parse(atob(token.split('.')[1]));
+  }
+
+ }

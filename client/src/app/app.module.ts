@@ -26,6 +26,11 @@ import { defineLocale } from 'ngx-bootstrap/chronos';
 import { deLocale } from 'ngx-bootstrap/locale';
 import { TimeagoIntl } from 'ngx-timeago';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
+import { HasRoleDirective } from './directives/has-role.directive';
+import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 defineLocale('bg', deLocale);
 
 
@@ -45,6 +50,11 @@ defineLocale('bg', deLocale);
     MemberEditComponent,
     PhotoEditorComponent,
     MemberMessagesComponent,
+    AdminPanelComponent,
+    HasRoleDirective,
+    UserManagementComponent,
+    PhotoManagementComponent,
+    RolesModalComponent,
   ],
   imports: [
     BrowserModule,
