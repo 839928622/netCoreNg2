@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 import { IMessage } from 'src/app/models/message';
 import { MessageService } from 'src/app/services/message.service';
 
@@ -14,10 +15,13 @@ export class MemberMessagesComponent implements OnInit {
   @Input() messages: IMessage[];
   @Input() usernameThatIamTalkingTo: string;
   messageContent: string;
-  constructor(private messageService: MessageService, private toastr: ToastrService) { }
+  memberMessages$: Observable<IMessage[]>;
+  constructor(private messageService: MessageService, private toastr: ToastrService,
+              ) { }
 
   ngOnInit(): void {
     // this.loadMessages();
+    this.memberMessages$ = this.messageService.messageThread$;
   }
 
   // loadMessages(): void {
@@ -31,9 +35,15 @@ export class MemberMessagesComponent implements OnInit {
       this.toastr.error('You can not send empty message');
       return;
     }
-    this.messageService.sendMessage(this.usernameThatIamTalkingTo, this.messageContent).subscribe(message => {
-      this.messages.push(message);
+
+    console.log('this.usernameThatIamTalkingTo', this.usernameThatIamTalkingTo);
+    this.messageService.sendMessage(this.usernameThatIamTalkingTo, this.messageContent)
+    .then(() => {
       this.messageForm.reset();
     });
+  //   .subscribe(message => {
+  //     this.messages.push(message);
+  //     this.messageForm.reset();
+  //   });
   }
 }

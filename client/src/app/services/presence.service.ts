@@ -33,6 +33,7 @@ export class PresenceService {
     });
     // onlineUsers
     this.hubConnection.on('GetOnlineUsers', (onlineUsers: string[]) => {
+      console.log('onlineUsers', onlineUsers);
       this.onlineUsersSource.next(onlineUsers);
     });
   }

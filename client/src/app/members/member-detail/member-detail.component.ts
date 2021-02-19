@@ -1,10 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { TimeagoIntl } from 'ngx-timeago';
+import { take } from 'rxjs/operators';
 import { IMember } from 'src/app/models/member';
 import { IMessage } from 'src/app/models/message';
+import { IUser } from 'src/app/models/user';
+import { AccountService } from 'src/app/services/account.service';
 import { MembersService } from 'src/app/services/members.service';
 import { MessageService } from 'src/app/services/message.service';
 
@@ -14,19 +17,26 @@ import { MessageService } from 'src/app/services/message.service';
   templateUrl: './member-detail.component.html',
   styleUrls: ['./member-detail.component.css']
 })
-export class MemberDetailComponent implements OnInit {
+export class MemberDetailComponent implements OnInit, OnDestroy {
   @ViewChild('memberTabs', {static: true }) memberTabs: TabsetComponent;
   activaTab: TabDirective;
   messages: IMessage[] = [];
   member: IMember;
   galleryOPtions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  currentUser: IUser;
 
   constructor(private memberService: MembersService, private route: ActivatedRoute,
-              intl: TimeagoIntl, private messageService: MessageService) {
+              intl: TimeagoIntl, private messageService: MessageService, private accountService: AccountService) {
     // intl.strings = stringsEs;
     // intl.changes.next();
+     this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
+       this.currentUser = user;
+     });
    }
+  ngOnDestroy(): void {
+    this.messageService.stopHubConnection();
+  }
 
   ngOnInit(): void {
 
@@ -76,12 +86,15 @@ export class MemberDetailComponent implements OnInit {
   {
     this.activaTab = data;
     if (this.activaTab.heading === 'Messages' && this.messages.length === 0) {
-      this.loadMessages();
+     // this.loadMessages();
+      this.messageService.createHubConnection(this.currentUser, this.member.userName);
+    } else{
+      this.messageService.stopHubConnection();
     }
   }
 
   loadMessages(): void {
-    this.messageService.getMessageThread(this.member.username).subscribe(messages => {
+    this.messageService.getMessageThread(this.member.userName).subscribe(messages => {
       this.messages = messages;
     });
   }
