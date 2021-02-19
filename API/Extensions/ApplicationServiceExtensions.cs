@@ -2,6 +2,7 @@
 using API.Helper;
 using API.Interfaces;
 using API.Services;
+using API.SignalR;
 using AutoMapper;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +36,7 @@ namespace API.Extensions
             services.AddScoped<LogUserActivity>();
             services.AddScoped<ILikeRepository, LikeRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddSingleton<PresenceTracker>();
             return services;
         }
     }

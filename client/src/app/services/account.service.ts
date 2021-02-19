@@ -47,9 +47,9 @@ return this.http.post(this.baseUrl + 'account/register', model).pipe(
   }
 
   setCurrentUser(user: IUser): void {
-
     const roles = this.getDecodedToken(user.token).role;
-    Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
+    console.log(roles);
+    Array.isArray(roles) ? user.roles = roles : user.roles = [roles];
     localStorage.setItem('user', JSON.stringify(user));
     console.log(user);
     this.currentUserSource.next(user);
