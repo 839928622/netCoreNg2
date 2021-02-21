@@ -11,7 +11,9 @@ namespace API.SignalR
         // there is nothing to stop a user from connecting to the same application from a different device,
         // and they would get a different connectionId for each different connection that they're having or making
         // to our application.so value will store a list of connectionId
-        private static readonly Dictionary<string, List<string>> OnlineUsers = 
+#pragma warning disable IDE1006 // 命名样式
+        private static readonly Dictionary<string, List<string>> OnlineUsers =
+#pragma warning restore IDE1006 // 命名样式
             new Dictionary<string, List<string>>();
 
         /// <summary>
@@ -22,8 +24,9 @@ namespace API.SignalR
         /// <param name="username"></param>
         /// <param name="connectionId"></param>
         /// <returns></returns>
-        public Task UserConnected(string username, string connectionId)
+        public Task<bool> UserConnected(string username, string connectionId)
         {
+            var isOnline = false;
             lock (OnlineUsers)
             {
                 if (OnlineUsers.ContainsKey(username))
@@ -33,25 +36,28 @@ namespace API.SignalR
                 else
                 {
                     OnlineUsers.Add(username, new List<string>(){ connectionId });
+                    isOnline = true;
                 }
             }
 
-            return Task.CompletedTask;
+            return Task.FromResult(isOnline);
         }
 
-        public Task UserDisconnected(string username, string connectionId)
+        public Task<bool> UserDisconnected(string username, string connectionId)
         {
+            var isOffline = false;
             lock (OnlineUsers)
             {
-                if (!OnlineUsers.ContainsKey(username)) return Task.CompletedTask;
+                if (!OnlineUsers.ContainsKey(username)) return Task.FromResult(false);
 
                 OnlineUsers[username].Remove(connectionId);
                 if (OnlineUsers[username].Count ==0)
                 {
                     OnlineUsers.Remove(username);
+                    isOffline = true;
                 }
             }
-            return Task.CompletedTask;
+            return Task.FromResult(isOffline);
         }
 
         public Task<string[]> GetOnlineUsers()
@@ -64,6 +70,17 @@ namespace API.SignalR
             }
 
             return Task.FromResult(onlineUsers);
+        }
+
+        public Task<List<string>> GetConnectionForUser(string username)
+        {
+            List<string> connectionIds;
+            lock (OnlineUsers)
+            {
+                connectionIds = OnlineUsers.GetValueOrDefault(username);
+            }
+
+            return Task.FromResult(connectionIds);
         }
     }
 

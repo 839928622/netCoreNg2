@@ -21,7 +21,41 @@ namespace API.Data
             _mapper = mapper;
             _context = context;
         }
-      
+
+
+        /// <inheritdoc />
+        public void AddGroup(Group @group)
+        {
+            _context.Groups.Add(group);
+        }
+
+        /// <inheritdoc />
+        public void RemoveConnection(Connection connection)
+        {
+            _context.Remove(connection);
+        }
+
+        /// <inheritdoc />
+        public async Task<Connection> GetConnection(string connectionId)
+        {
+            return await _context.Connections.FindAsync(connectionId);
+        }
+
+        /// <inheritdoc />
+        public async Task<Group> GetMessageGroup(string groupName)
+        {
+            return await _context.Groups
+                .Include(x => x.Connections)
+                .FirstOrDefaultAsync(x => x.Name == groupName);
+        }
+
+        /// <inheritdoc />
+        public async Task<Group> GetGroupForConnection(string connectionId)
+        {
+            return await _context.Groups.Include(x => x.Connections)
+                .Where(c => c.Connections.Any(x => x.ConnectionId == connectionId))
+                .FirstOrDefaultAsync();
+        }
 
         /// <inheritdoc />
         public void AddMessage(Message message)
@@ -68,10 +102,7 @@ namespace API.Data
             var messages = await _context.Message
                 .Include(u => u.Sender).ThenInclude(p => p.Photos)
                 .Include(r => r.Recipient).ThenInclude(r=>r.Photos)
-                .Where(x =>
-                x.Recipient.UserName == currentUsername && x.Sender.UserName == recipientUsername && x.RecipientDeleted == false
-                || 
-                x.Sender.UserName == recipientUsername && x.Sender.UserName == currentUsername && x.SenderDeleted == false)
+                .Where(m => m.Recipient.UserName == currentUsername && m.RecipientDeleted == false && m.Sender.UserName == recipientUsername || m.Recipient.UserName == recipientUsername && m.Sender.UserName == currentUsername && m.SenderDeleted == false)
                 .OrderBy(x => x.MessageSent).ToListAsync();
             // mark message to read because current user was reading
             var unreadMessages = messages.Where(m => m.DateRead == null

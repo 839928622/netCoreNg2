@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { TimeagoIntl } from 'ngx-timeago';
@@ -27,12 +27,15 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   currentUser: IUser;
 
   constructor(private memberService: MembersService, private route: ActivatedRoute,
-              intl: TimeagoIntl, private messageService: MessageService, private accountService: AccountService) {
+              intl: TimeagoIntl, private messageService: MessageService, private accountService: AccountService,
+              private router: Router) {
     // intl.strings = stringsEs;
     // intl.changes.next();
      this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
        this.currentUser = user;
      });
+
+     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
    }
   ngOnDestroy(): void {
     this.messageService.stopHubConnection();
@@ -85,7 +88,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
   onTabActivated(data: TabDirective): void
   {
     this.activaTab = data;
-    if (this.activaTab.heading === 'Messages' && this.messages.length === 0) {
+    if (this.activaTab.heading === 'Messages') {
      // this.loadMessages();
       this.messageService.createHubConnection(this.currentUser, this.member.userName);
     } else{

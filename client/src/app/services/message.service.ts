@@ -8,6 +8,7 @@ import { IMessage } from '../models/message';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { PaginatedResult } from '../models/IPagination';
 import { IUser } from '../models/user';
+import { IGroup } from '../models/group';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,7 @@ export class MessageService {
 
     // listening
     this.HubConnection.on('ReceiveMessageThread', (messages: IMessage[]) => {
+      console.log('messagesThread', messages);
       this.messageThreadSource.next(messages);
     });
     // new message
@@ -38,6 +40,21 @@ export class MessageService {
         // merge old messages and new single message
         this.messageThreadSource.next([...oldMessages, singleNewMessages ]);
       });
+    });
+
+     // listening on  group status
+    this.HubConnection.on('UpdatedGroup', (group: IGroup) => {
+      if (group.connections.some(x => x.username === otherUsername)) {
+        this.messageThread$.pipe(take(1)).subscribe(oldMessages => {
+          oldMessages.forEach(message => {
+            if (message.dateRead === null) {
+              message.dateRead = new Date(Date.now());
+            }
+          });
+          this.messageThreadSource.next([...oldMessages]);
+        });
+      }
+
     });
   }
 

@@ -20,6 +20,9 @@ namespace API.Data
 
     public DbSet<Message> Message { get; set; }
 
+    public DbSet<Group> Groups { get; set; }
+    public DbSet<Connection> Connections { get; set; }
+
     /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -71,8 +74,11 @@ namespace API.Data
             modelBuilder.Entity<AppRole>().HasMany(ur => ur.UserRoles).WithOne(u => u.Role)
                 .HasForeignKey(ur => ur.RoleId).IsRequired();
 
+            //Group
+            modelBuilder.Entity<Group>().ToTable("Groups");
+            //Connection
+            modelBuilder.Entity<Connection>().ToTable("Connections");
 
-
+        }
     }
-  }
 }
