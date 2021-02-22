@@ -120,7 +120,7 @@ namespace API.Data
                 //        message.DateRead = DateTimeOffset.Now;
                 //    });
 
-                await _context.SaveChangesAsync();
+                //await _context.SaveChangesAsync(); not the repository's job
             }
 
             return _mapper.Map<IEnumerable<MessageDto>>(messages);

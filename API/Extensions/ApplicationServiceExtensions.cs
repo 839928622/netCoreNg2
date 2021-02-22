@@ -23,7 +23,6 @@ namespace API.Extensions
 
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IUserRepository, UserRepository>();
             // auto mapper
             services.AddAutoMapper(typeof(AutoMapperProfiles));
             // mapster
@@ -34,8 +33,11 @@ namespace API.Extensions
             services.AddScoped<IPhotoService, PhotoService>();
 
             services.AddScoped<LogUserActivity>();
-            services.AddScoped<ILikeRepository, LikeRepository>();
-            services.AddScoped<IMessageRepository, MessageRepository>();
+
+            //services.AddScoped<IUserRepository, UserRepository>();
+            //services.AddScoped<ILikeRepository, LikeRepository>();
+            //services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddSingleton<PresenceTracker>();
             return services;
         }

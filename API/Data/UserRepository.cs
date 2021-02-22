@@ -19,14 +19,14 @@ namespace API.Data
         private readonly DataContext _context;
 
         private readonly MapsterMapper.IMapper _mapster;
-        private readonly IMapper _autoMapper;
+        //private readonly IMapper _autoMapper;
 
-        public UserRepository(DataContext context, MapsterMapper.IMapper mapster, IMapper autoMapper)
+        public UserRepository(DataContext context, MapsterMapper.IMapper mapster)
         {
             _context = context;
     
             _mapster = mapster;
-            _autoMapper = autoMapper;
+           // _autoMapper = autoMapper;
         }
         /// <inheritdoc />
         public void Update(AppUser user)
@@ -79,7 +79,7 @@ namespace API.Data
 
 
             return await PagedList<MemberToReturnDto>
-               .CreateAsync(query.ProjectTo<MemberToReturnDto>(_autoMapper.ConfigurationProvider).AsNoTracking(),
+               .CreateAsync(query.ProjectToType<MemberToReturnDto>(_mapster.Config).AsNoTracking(),
                request.PageNumber, request.PageSize);
 
         }
