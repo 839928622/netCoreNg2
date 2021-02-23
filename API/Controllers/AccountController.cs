@@ -25,13 +25,12 @@ namespace API.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
 
-        public AccountController(DataContext context, ITokenService tokenService, IUserRepository userRepository,
+        public AccountController(DataContext context, ITokenService tokenService, IUnitOfWork unitOfWork,
                                  IMapper mapper, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
-     
             _context = context;
             _tokenService = tokenService;
-            _userRepository = userRepository;
+            _userRepository = unitOfWork.UserRepository;
             _mapper = mapper;
             _userManager = userManager;
             _signInManager = signInManager;
@@ -86,6 +85,7 @@ namespace API.Controllers
             };
 
         }
+
 
     }
 }
