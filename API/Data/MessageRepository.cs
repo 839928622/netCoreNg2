@@ -82,7 +82,8 @@ namespace API.Data
         /// <inheritdoc />
         public async Task<PagedList<MessageDto>> GetMessageForUser(MessageParams messageParams)
         {
-            var query = _context.Message.OrderByDescending(x => x.MessageSent).AsQueryable();
+            var query = _context.Message
+                .OrderByDescending(x => x.MessageSent).AsQueryable();
 
             query = messageParams.Container switch
             {
@@ -100,13 +101,15 @@ namespace API.Data
         public async Task<IEnumerable<MessageDto>> GetMessageThread(string currentUsername, string recipientUsername)
         {
             var messages = await _context.Message
-                .Include(u => u.Sender).ThenInclude(p => p.Photos)
-                .Include(r => r.Recipient).ThenInclude(r=>r.Photos)
+                //.Include(u => u.Sender).ThenInclude(p => p.Photos)
+                //.Include(r => r.Recipient).ThenInclude(r=>r.Photos) cuz of ProjectToType, wo don' need Include any more at the query
                 .Where(m => m.Recipient.UserName == currentUsername && m.RecipientDeleted == false && m.Sender.UserName == recipientUsername || m.Recipient.UserName == recipientUsername && m.Sender.UserName == currentUsername && m.SenderDeleted == false)
-                .OrderBy(x => x.MessageSent).ToListAsync();
+                .OrderBy(x => x.MessageSent)
+                .ProjectToType<MessageDto>(_mapper.Config)
+                .ToListAsync();
             // mark message to read because current user was reading
             var unreadMessages = messages.Where(m => m.DateRead == null
-                                                     && m.Recipient.UserName == currentUsername).ToList();
+                                                     && m.RecipientUsername == currentUsername).ToList();
             if (unreadMessages.Any())
             {
                 foreach (var message in unreadMessages)
@@ -123,7 +126,7 @@ namespace API.Data
                 //await _context.SaveChangesAsync(); not the repository's job
             }
 
-            return _mapper.Map<IEnumerable<MessageDto>>(messages);
+            return messages;
         }
 
         /// <inheritdoc />
