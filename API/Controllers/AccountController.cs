@@ -56,7 +56,7 @@ namespace API.Controllers
             if (!roleResult.Succeeded) return BadRequest(roleResult.Errors);
             return new UserDto
             {
-                Username = user.UserName,
+                UserName = user.UserName,
                 Token = await _tokenService.CreateToken(user)
             };
         }
@@ -78,7 +78,7 @@ namespace API.Controllers
           if (!result.Succeeded) return Unauthorized("Invalid username or password");
             return new UserDto
             {
-                Username = user.UserName,
+                UserName = user.UserName,
                 Token =  await _tokenService.CreateToken(user),
                 MainPhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain == true)?.Url
                 
