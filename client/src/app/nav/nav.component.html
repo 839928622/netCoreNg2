@@ -36,11 +36,11 @@
 
         </ul>
       </ng-container>
-
-          <div  class="dropdown" dropdown *ngIf="(currentUser$ | async) as user">
+         <app-translate></app-translate>
+      <div  class="dropdown" dropdown *ngIf="(currentUser$ | async) as user">
             <span class="mr-1"> <img src="{{user.mainPhotoUrl|| '/assets/user.jpg'}}" alt="{{user.userName}}"></span>
             <a class="dropdown-toggle text-light"  dropdownToggle>
-              Welcome {{ user.userName }}
+              {{'nav.welcome' | translate }} {{ user.userName }}
             </a>
 
             <div class="dropdown-menu mt-3" *dropdownMenu>

@@ -1,0 +1,14 @@
+<div class="btn-group" dropdown>
+  <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+          aria-controls="dropdown-basic">
+          {{'translate.language' | translate}}
+  </button>
+
+  <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+      role="menu" aria-labelledby="button-basic">
+      <a class="dropdown-item" *ngFor="let lang of langs | keyvalue" (click)="useLanguage(lang.key)">
+        <span>{{ lang.value }}</span>
+      </a>
+  </ul>
+</div>
+

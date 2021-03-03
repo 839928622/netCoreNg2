@@ -1,0 +1,9 @@
+{
+  "translate":{
+    "language":"English"
+  },
+  "nav":{
+    "username":"username", "password":"password", "welcome":"Welcome"
+
+  }
+}
