@@ -3,6 +3,12 @@
     "language":"简体中文"
   },
   "nav":{
-    "username":"用户名", "password":"密码", "welcome":"欢迎"
+    "username":"用户名", "password":"密码", "welcome":"欢迎", "login":"登录"
+  },
+   "home":{
+    "findYourMatch":"寻找志同道合的朋友",
+    "Introduction":"想和朋友一起交流成长， 你要做的就是立即“注册”",
+    "register":"立即注册",
+    "more":"了解更多"
   }
 }

@@ -51,10 +51,10 @@
           </div>
       <form #loginForm="ngForm" *ngIf="(currentUser$ | async) === null"  class="form-inline my-2 my-lg-0" (ngSubmit)="login()" autocomplete="off">
 
-        <input class="form-control mr-sm-2" type="text" autocomplete="username" name="username" [(ngModel)] ="model.username" placeholder="username" required >
+        <input class="form-control mr-sm-2" type="text" autocomplete="username" name="username" [(ngModel)] ="model.username" placeholder="{{'nav.username' | translate}}" required >
 
-        <input class="form-control mr-sm-2" type="password" autocomplete="current-password" name="password" [(ngModel)] ="model.password" placeholder="password" required >
-        <button  class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+        <input class="form-control mr-sm-2" type="password" autocomplete="current-password" name="password" [(ngModel)] ="model.password" placeholder="{{'nav.password' | translate}}" required >
+        <button  class="btn btn-success my-2 my-sm-0" type="submit">{{'nav.login' | translate}}</button>
       </form>
   </div>
 

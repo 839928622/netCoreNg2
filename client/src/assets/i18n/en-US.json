@@ -3,7 +3,13 @@
     "language":"English"
   },
   "nav":{
-    "username":"username", "password":"password", "welcome":"Welcome"
+    "username":"username", "password":"password", "welcome":"Welcome", "login":"Login"
 
+  },
+  "home":{
+    "findYourMatch":"Find and make friends",
+    "Introduction":"Come on in to view your matches... all you need to do is sing up ",
+    "register":"Register",
+    "more":"Learn more"
   }
 }
