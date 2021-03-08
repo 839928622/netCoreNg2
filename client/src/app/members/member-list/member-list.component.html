@@ -1,16 +1,16 @@
 <div class="text-center mt-3">
-  <h2>Your matches - {{pagination?.totalItems}} found</h2>
+  <h2>{{'members-list.matches' | translate}} - {{pagination?.totalItems}} {{'members-list.found' | translate}}</h2>
 </div>
 <div class="container mt-3">
    <form #form="ngForm" class="form-inline mb-3" (ngSubmit)="loadMembers()" autocomplete="off">
      <div class="form-group">
-       <label for="">Age from:</label>
+       <label for="">{{'members-list.age.from' | translate}}:</label>
        <input type="number" class="form-control ml-1" style="width: 70px;" name="minAge"
        [(ngModel)]="memberFilter.minAge">
      </div>
 
      <div class="form-group px-2">
-      <label for="">Age to:</label>
+      <label for="">{{'members-list.age.to' | translate}}:</label>
       <input type="number" class="form-control ml-1" style="width: 70px;" name="maxAge"
       [(ngModel)]="memberFilter.maxAge">
     </div>
@@ -19,17 +19,17 @@
       <label for="">Show:</label>
       <select type="number" class="form-control ml-1" style="width: 130px;" name="gender"
       [(ngModel)]="memberFilter.gender">
-    <option *ngFor="let item of genderOptions" [value]="item.value">{{item.display}}</option>
+    <option *ngFor="let item of genderOptions" [value]="item.value">{{item.display | translate}}</option>
     </select>
     </div>
 
-    <button class="btn btn-primary ml-1" type="submit">Apply Filters</button>
-    <button class="btn btn-info ml-1" type="reset" (click)="resetFilters()">Reset Filters</button>
+    <button class="btn btn-primary ml-1" type="submit">{{ 'member-list.apply-filters' | translate}}</button>
+    <button class="btn btn-info ml-1" type="reset" (click)="resetFilters()">{{ 'member-list.reset-filters' | translate}}</button>
 
     <div class="col">
       <div class="btn-group float-right">
-        <button class="btn btn-primary" type="button" name="orderBy" (click)="loadMembers()" btnRadio='lastActive'[(ngModel)]="memberFilter.orderBy">Last Active</button>
-        <button class="btn btn-primary" type="button" name="orderBy" (click)="loadMembers()" btnRadio='created'[(ngModel)]="memberFilter.orderBy">Newest Members</button>
+        <button class="btn btn-primary" type="button" name="orderBy" (click)="loadMembers()" btnRadio='lastActive'[(ngModel)]="memberFilter.orderBy">{{ 'member-list.last-active' | translate }}</button>
+        <button class="btn btn-primary" type="button" name="orderBy" (click)="loadMembers()" btnRadio='created'[(ngModel)]="memberFilter.orderBy">{{ 'member-list.newest-members' | translate }}</button>
       </div>
     </div>
    </form>

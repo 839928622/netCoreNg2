@@ -3,13 +3,34 @@
     "language":"English"
   },
   "nav":{
-    "username":"username", "password":"password", "welcome":"Welcome", "login":"Login"
-
+    "username":"username", "password":"password", "welcome":"Welcome",   "login":"Login",
+    "matches":"Matches",   "lists":"Lists",       "messages":"Messages", "profile":"Profile",
+    "logout":"Logout"
   },
   "home":{
     "findYourMatch":"Find and make friends",
     "Introduction":"Come on in to view your matches... all you need to do is sing up ",
     "register":"Register",
     "more":"Learn more"
+  },
+  "register": {
+    "signup":"Sign up", "Im":"I am a", "male":"Male", "female":"Female", "others":"Others",
+    "username.required":"Please enter your username", "password.required":"Please enter your password",
+    "password.minlength":"Password must be at least 8 charaters", "password.maxlength":"Password must be at least 8 charaters",
+    "confirm-password.required":"Please enter your Confirm password", "confirm-password.match":" Confirm password must match your password",
+    "knowAs.required":"Please enter your knowAs", "birthday.required":"Please enter your date of birth",
+    "city":"Please enter your city", "country":"Please enter your country" , "register":"Register",
+    "cancel":"Cancel"
+
+  },
+  "member-list": {
+    "matches":"Your matches", "found":"Found", "age.from":"Age from", "age.to:":"Age to","show":"Show",
+    "males":"Males","females":"Females",
+    "apply-filters":"Apply Filters", "reset-filters":"Reset Filters", "last-active":"Last Active",
+    "newest-members":"Newest Members"
+
+  },
+  "member-card":{
+    "online":"Online","offline":"Offline"
   }
 }

@@ -3,12 +3,33 @@
     "language":"简体中文"
   },
   "nav":{
-    "username":"用户名", "password":"密码", "welcome":"欢迎", "login":"登录"
+    "username":"用户名", "password":"密码", "welcome":"欢迎", "login":"登录",
+    "matches":"广场",    "lists":"互动列表", "messages":"消息", "profile":"个人",
+    "logout":"登出"
   },
    "home":{
     "findYourMatch":"寻找志同道合的朋友",
     "Introduction":"想和朋友一起交流成长， 你要做的就是立即“注册”",
     "register":"立即注册",
     "more":"了解更多"
+  },
+  "register": {
+    "signup":"注册", "Im":"我的性别是", "male":"男", "female":"女", "others":"其他",
+    "username.required":"请输入用户名", "password.required":"请输入密码",
+    "password.minlength":"密码长度最少8位", "password.maxlength":"密码长度最多20位",
+    "confirm-password.required":"请确认密码", "confirm-password.match":"确认密码和原密码不匹配",
+    "knowAs.required":"请输入昵称", "birthday.required":"出生日期",
+    "city":"位于哪个城市？", "country":"在哪个国家？" , "register":"提交",
+    "cancel":"返回"
+
+  },
+  "member-list": {
+    "matches":"当前匹配到", "found":"人", "age.from":"年零从", "age.to:":"到","show":"展示",
+    "apply-filters":"筛选", "reset-filters":"重置筛选条件", "last-active":"最近活跃",
+    "newest-members":"新用户"
+
+  },
+  "member-card":{
+    "online":"在线","offline":"离线"
   }
 }

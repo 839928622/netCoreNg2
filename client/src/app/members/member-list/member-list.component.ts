@@ -15,7 +15,7 @@ export class MemberListComponent implements OnInit {
   pageNumber = 1;
   pageSize = 5;
   memberFilter = new MemberFilter();
-  genderOptions = [{value: 'male', display: 'Males'}, {value: 'female', display: 'Females'}];
+  genderOptions = [{value: 'male', display: 'member-list.males'}, {value: 'female', display: 'member-list.females'}];
   constructor(private memberService: MembersService) { }
 
   ngOnInit(): void {

@@ -9,13 +9,13 @@
       <ng-container *ngIf="currentUser$ | async">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item " routerLinkActive="active">
-            <a class="nav-link" [routerLink]="['/members']"  >Matches</a>
+            <a class="nav-link" [routerLink]="['/members']"  >{{'nav.matches' | translate }}</a>
           </li>
           <li class="nav-item" routerLinkActive="active" >
-            <a class="nav-link" [routerLink]="['/lists']" >Lists</a>
+            <a class="nav-link" [routerLink]="['/lists']" >{{'nav.lists' | translate }}</a>
           </li>
           <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" [routerLink]="['/messages']"  >Messages</a>
+            <a class="nav-link" [routerLink]="['/messages']"  >{{'nav.messages' | translate }}</a>
           </li>
           <li *appHasRole='["Admin"]' class="nav-item" routerLinkActive="active">
             <a class="nav-link" [routerLink]="['/admin']"  >Admin</a>
@@ -44,9 +44,9 @@
             </a>
 
             <div class="dropdown-menu mt-3" *dropdownMenu>
-              <a class="dropdown-item" [routerLink]="['/member/edit']"  ><i class="fa fa-user"></i>Profile</a>
+              <a class="dropdown-item" [routerLink]="['/member/edit']"  ><i class="fa fa-user"></i>{{'nav.profile' | translate }}</a>
                <div class="dropdown-divider"></div>
-              <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>Logout</a>
+              <a class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i>{{'nav.logout' | translate }}</a>
             </div>
           </div>
       <form #loginForm="ngForm" *ngIf="(currentUser$ | async) === null"  class="form-inline my-2 my-lg-0" (ngSubmit)="login()" autocomplete="off">
