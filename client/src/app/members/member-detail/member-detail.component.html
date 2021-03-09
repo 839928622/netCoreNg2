@@ -6,22 +6,22 @@
       <!--card body-->
       <div class="card-body">
         <div>
-          <strong>Location:</strong>
+          <strong>{{'member-detail.location' | translate}}:</strong>
           <p>{{member.city}},{{member.country}}</p>
         </div>
 
         <div>
-          <strong>Age:</strong>
+          <strong>{{'member-detail.age' | translate}}:</strong>
           <p>{{member.age}}</p>
         </div>
 
         <div>
-          <strong>Last Active:</strong>
+          <strong>{{'member-detail.last-active' | translate}}:</strong>
           <p>{{member.lastActive | timeago}}</p>
         </div>
 
         <div>
-          <strong>Member since:</strong>
+          <strong>{{'member-detail.member-since' | translate}}:</strong>
           <p>{{member.created | date: 'yyyy-MM-dd HH:mm:ss'}}</p>
         </div>
 
@@ -29,8 +29,8 @@
       <!--card footer-->
       <div class="card-footer">
         <div class="btn-group d-flex">
-          <button class="btn btn-primary col-6">Like</button>
-          <button class="btn btn-success col-6" (click)="selectTab(3)">Message</button>
+          <button class="btn btn-primary col-6">{{'member-detail.like' | translate}}</button>
+          <button class="btn btn-success col-6" (click)="selectTab(3)">{{'member-detail.message' | translate}}</button>
         </div>
     </div>
     </div>
@@ -38,21 +38,21 @@
 
   <div class="col-8">
     <tabset class="member-tabset" #memberTabs>
-      <tab heading='About {{member.knownAs}}' (selectTab)="onTabActivated($event)">
-        <h4>Description</h4>
+      <tab heading="{{'member-detail.about' | translate}}  {{member.knownAs}}" (selectTab)="onTabActivated($event)">
+        <h4>{{'member-detail.description' | translate}}</h4>
         <p>{{member.introduction}}</p>
-        <h4>Looking for</h4>
+        <h4>{{'member-detail.looking-for' | translate}}</h4>
         <p>{{member.lookingFor}}</p>
       </tab>
-      <tab heading='Interests' (selectTab)="onTabActivated($event)">
-        <h4>Interests</h4>
+      <tab heading="{{'member-detail.interests' | translate}}" (selectTab)="onTabActivated($event)">
+        <!-- <h4>{{'member-detail.interests' | translate}}</h4> -->
         <p>{{member.interests}}</p>
       </tab>
-      <tab heading='Photos' (selectTab)="onTabActivated($event)">
+      <tab heading="{{'member-detail.photos' | translate}}" (selectTab)="onTabActivated($event)">
        <ngx-gallery [options]="galleryOPtions" [images]="galleryImages"
        style="display: inline-block;margin-bottom: 20px;"></ngx-gallery>
       </tab>
-      <tab heading='Messages' (selectTab)="onTabActivated($event)">
+      <tab heading="{{'member-detail.messages' | translate}}" (selectTab)="onTabActivated($event)">
         <app-member-messages  [usernameThatIamTalkingTo]="member.userName"></app-member-messages>
       </tab>
     </tabset>

@@ -91,6 +91,6 @@ export class MessageService {
   }
 
   deleteMessage(messageId: number): Observable<object> {
-    return this.http.delete(this.baseUrl + 'messages/' + messageId);
+    return this.http.delete<object>(this.baseUrl + 'messages/' + messageId);
   }
 }

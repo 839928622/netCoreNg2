@@ -6,8 +6,8 @@
 <div class="container mt-3">
   <div class="row">
     <div class="btn-group" name="predicate">
-      <button class="btn btn-primary" btnRadio="liked"   (click)="loadLikes()"   [(ngModel)]="predicate">Members I like</button>
-      <button class="btn btn-primary" btnRadio="likedBy" (click)="loadLikes()" [(ngModel)]="predicate">Members who like me</button>
+      <button class="btn btn-primary" btnRadio="liked"   (click)="loadLikes()"   [(ngModel)]="predicate">{{'lists.members-I-like' | translate}}</button>
+      <button class="btn btn-primary" btnRadio="likedBy" (click)="loadLikes()" [(ngModel)]="predicate">{{'lists.members-like-me' | translate}}</button>
 
     </div>
   </div>

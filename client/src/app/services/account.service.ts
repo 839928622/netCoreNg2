@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, ReplaySubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { IUser } from '../models/user';
 import { environment } from './../../environments/environment';
 import { PresenceService } from './presence.service';
@@ -16,7 +17,9 @@ private currentUserSource = new ReplaySubject<IUser>(1);
 currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private http: HttpClient, private router: Router,
-              private toastr: ToastrService, private presenceService: PresenceService) {
+              private toastr: ToastrService, private presenceService: PresenceService,
+              private translate: TranslateService
+              ) {
     console.log(this.currentUserSource);
     console.log(this.currentUser$ );
   }
@@ -26,7 +29,9 @@ currentUser$ = this.currentUserSource.asObservable();
         // localStorage.setItem('user', JSON.stringify(response));
         // this.currentUserSource.next(response);
         this.setCurrentUser(response);
-        this.toastr.success('you are logged in, welcome', '');
+        this.translate.stream('account-service.welcome').pipe(take(1)).subscribe( (welcome: string) => {
+          this.toastr.success(welcome + ' ' + response.userName, '');
+        });
         this.presenceService.createHubConnection(response);
         this.router.navigateByUrl('/members');
       }

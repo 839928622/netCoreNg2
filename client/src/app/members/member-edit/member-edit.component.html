@@ -1,14 +1,14 @@
 <div class="row" *ngIf="member">
   <div class="col-4">
-    <h1>Your profile</h1>
+    <h1>{{'member-edit.profile' | translate}}</h1>
   </div>
   <div class="col-8">
     <div *ngIf="userProfileForm.dirty" class="alert alert-danger">
 
         <strong
-          >Infomation:</strong
+          >{{'member-edit.infomation' | translate}}:</strong
         >
-        Your have made changes. Any unsaved changes will be lost
+        {{'member-edit.tips' | translate}}
     </div>
   </div>
   <div class="col-4">
@@ -21,52 +21,52 @@
       <!--card body-->
       <div class="card-body">
         <div>
-          <strong>Location:</strong>
+          <strong>{{'member-edit.location' | translate}}:</strong>
           <p>{{ member.city }},{{ member.country }}</p>
         </div>
 
         <div>
-          <strong>Age:</strong>
+          <strong>{{'member-edit.age' | translate}}:</strong>
           <p>{{ member.age }}</p>
         </div>
 
         <div>
-          <strong>Last Active:</strong>
+          <strong>{{'member-edit.last-active' | translate}}:</strong>
           <p>{{ member.lastActive }}</p>
         </div>
 
         <div>
-          <strong>Member since:</strong>
+          <strong>{{'member-edit.member-since' | translate}}:</strong>
           <p>{{ member.created }}</p>
         </div>
       </div>
       <!--card footer-->
       <div class="card-footer">
-        <button form="userProfileForm" class="btn btn-success btn-block" [disabled]="!userProfileForm.dirty">Save</button>
+        <button form="userProfileForm" class="btn btn-success btn-block" [disabled]="!userProfileForm.dirty">{{'member-edit.save' | translate}}</button>
       </div>
     </div>
   </div>
 
   <div class="col-8">
     <tabset class="member-tabset">
-      <tab heading="About {{ member.knownAs }}">
+      <tab heading="{{'member-edit.about' | translate}} {{ member.knownAs }}">
         <form  #userProfileForm="ngForm" id="userProfileForm" (ngSubmit)="updateMember()">
-          <h4>Description</h4>
+          <h4>{{'member-edit.description' | translate}}</h4>
           <textarea class="form-control" [(ngModel)]="member.introduction" name="introduction" rows="6"></textarea>
-          <h4 class="mt-2">Looking for</h4>
+          <h4 class="mt-2">{{'member-edit.looking-for' | translate}}</h4>
           <textarea class="form-control" [(ngModel)]="member.lookingFor" name="lookingFor" rows="6"></textarea>
-          <h4 class="mt-2">Interests</h4>
+          <h4 class="mt-2">{{'member-edit.interests' | translate}}</h4>
           <textarea class="form-control" [(ngModel)]="member.interests" name="interests" rows="6"></textarea>
-          <h4 class="mt-2">Location Details:</h4>
+          <h4 class="mt-2">{{'member-edit.location-details' | translate}}:</h4>
           <div class="form-inline">
-            <label for="city">City:</label>
+            <label for="city">{{'member-edit.city' | translate}}:</label>
             <input [(ngModel)]="member.city" type="text" name="city" class="form-control mx-2" />
-            <label for="country">Country:</label>
+            <label for="country">{{'member-edit.country' | translate}}:</label>
             <input [(ngModel)]="member.country" type="text" name="country" class="form-control mx-2" />
           </div>
         </form>
       </tab>
-      <tab heading='Edit Photos'>
+      <tab heading="{{'member-edit.edit-photos' | translate}}">
         <app-photo-editor [member]="member"></app-photo-editor>
       </tab>
     </tabset>

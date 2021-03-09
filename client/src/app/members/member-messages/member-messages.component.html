@@ -5,7 +5,7 @@
   [scrollTop]="scrollMe.scrollHeight"
   >
     <div *ngIf="(memberMessages$ | async )?.length ===0">
-      No messages yet... say hi by using the message box below
+      {{'member-messages.no-messages' | translate}}
     </div>
     <ul
 
@@ -20,10 +20,10 @@
               <small class="text-muted">
                 <span class="fa fa-clock-o">{{message.messageSent | timeago }}</span>
                 <span class="text-danger" *ngIf="!message.dateRead && message.senderUsername !== usernameThatIamTalkingTo">
-                  (unread)
+                  ({{'member-messages.unread' | translate}})
                 </span>
                 <span class="text-success" *ngIf="message.dateRead && message.senderUsername !== usernameThatIamTalkingTo">
-                  (read {{message.dateRead | timeago}})
+                  ({{'member-messages.read' | translate}} {{message.dateRead | timeago}})
                 </span>
               </small>
             </div>
@@ -38,9 +38,9 @@
     <form #messageForm="ngForm" (ngSubmit)="sendMessage()" autocomplete="off">
       <div class="input-group">
         <input type="text" class="form-control input-sm" required
-        name="messageContent" [(ngModel)]="messageContent" placeholder="Send a private message">
+        name="messageContent" [(ngModel)]="messageContent" placeholder="{{'member-messages.private-message' | translate }}">
         <div class="input-group-append">
-          <button class="btn btn-primary" type="submit" [disabled]="messageForm.invalid">Send</button>
+          <button class="btn btn-primary" type="submit" [disabled]="messageForm.invalid">{{'member-messages.send' | translate}}</button>
         </div>
       </div>
     </form>

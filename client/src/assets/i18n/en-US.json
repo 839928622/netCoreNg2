@@ -34,5 +34,37 @@
   },
   "member-card":{
     "online":"Online","offline":"Offline"
+  },
+  "member-detail":{
+    "location":"Location", "age":"Age", "last-active":"Last Active", "member-since":"Member since",
+    "like":"Like", "message":"Message", "description":"Description", "about":"About",
+    "looking-for":"Looking for", "interests":"Interests","photos":"Photos","messages":"Messages"
+  },
+  "member-messages":{
+   "no-messages":"No messages yet... say hi by using the message box below",
+   "unread":"unread", "read":"read", "send":"Send","private-message":"Send a private message"
+  },
+  "messages":{
+    "unread":"Unread", "inbox":"Inbox", "outbox":"Outbox", "no-messages":"No messages",
+    "message":"Message", "from":"From", "to":"To", "sent":"Sent", "received":"Received",
+    "delete":"Delete"
+  },
+  "lists":{
+    "members-I-like":"Members I like","members-like-me":"Members who like me"
+  },
+  "member-edit": {
+    "profile":"Your profile","infomation":"Infomation","tips":"Your have made changes. Any unsaved changes will be lost", "location":"Location","age":"Age",
+    "last-active":"Last Active", "member-since":"Member since", "save":"Save","about":"About",
+    "description":"Description", "looking-for":"Looking for", "interests":"Interests",
+    "location-details":"Location Details","city":"City", "country":"Country","edit-photos":"Edit Photos"
+  },
+  "photo-editor":{
+    "main":"Main", "add":"Add Photos","drag&drop":"Drop your photos here","multiple":"Multiple",
+    "single":"Single","upload-queue":"Upload queue", "queue-length":"Queue length","name":"Name",
+    "size":"Size","queue-progress":"Queue progress","upload-all":"Upload all","cancel-all":"Cancel all",
+    "remove-all":"Remove all"
+  },
+  "account-service":{
+    "welcome":"you are logged in, welcome"
   }
 }

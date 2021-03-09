@@ -4,7 +4,7 @@
   },
   "nav":{
     "username":"用户名", "password":"密码", "welcome":"欢迎", "login":"登录",
-    "matches":"广场",    "lists":"互动列表", "messages":"消息", "profile":"个人",
+    "matches":"广场",    "lists":"关注列表", "messages":"消息", "profile":"个人",
     "logout":"登出"
   },
    "home":{
@@ -34,5 +34,37 @@
   },
   "member-card":{
     "online":"在线","offline":"离线"
+  },
+  "member-detail":{
+    "location":"位于", "age":"年龄", "last-active":"上次上线", "member-since":"注册于",
+    "like":"点关注", "message":"发消息", "description":"自我介绍", "about":"关于",
+    "looking-for":"想要寻找", "interests":"兴趣爱好","photos":"照片", "messages":"消息"
+  },
+  "member-messages":{
+    "no-messages":"你们之间还没有发送过消息,在下方输入框中向对方打招呼吧",
+    "unread":"未读", "read":"已读于", "send":"发送","private-message":"给对方发送一条私信"
+   },
+   "messages":{
+    "unread":"未读", "inbox":"收件箱", "outbox":"发件箱", "no-messages":"暂无消息",
+    "message":"消息", "from":"来自", "to":"发送给", "sent":"发送", "received":"接收",
+    "delete":"删除"
+  },
+  "lists":{
+    "members-I-like":"我关注的","members-like-me":"关注我的"
+  },
+  "member-edit": {
+    "profile":"个人信息","infomation":"提示","tips":"您的修改没有保存，您将丢失未保存的内容","location":"位于","age":"年零",
+    "last-active":"上次上线于", "member-since":"注册于", "save":"提交","about":"关于",
+    "description":"自我介绍", "looking-for":"正在寻找", "interests":"兴趣爱好",
+    "location-details":"位置信息","city":"城市", "country":"国家","edit-photos":"编辑图片"
+  },
+  "photo-editor":{
+    "main":"主图", "add":"添加图片","drag&drop":"把图片拖动到这儿","multiple":"多张",
+    "single":"单张","upload-queue":"上传队列", "queue-length":"队列长度","name":"文件名",
+    "size":"文件大小","queue-progress":"上传进度","upload-all":"上传所有","cancel-all":"取消所有",
+    "remove-all":"移除所有"
+  },
+  "account-service":{
+    "welcome":"登录成功，欢迎您"
   }
 }
