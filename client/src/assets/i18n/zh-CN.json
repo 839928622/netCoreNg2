@@ -15,6 +15,8 @@
   },
   "register": {
     "signup":"注册", "Im":"我的性别是", "male":"男", "female":"女", "others":"其他",
+    "username":"用户名", "password":"密码","confirm-password":"确认密码",
+    "knownAs":"昵称", "birthday":"我的生日",
     "username.required":"请输入用户名", "password.required":"请输入密码",
     "password.minlength":"密码长度最少8位", "password.maxlength":"密码长度最多20位",
     "confirm-password.required":"请确认密码", "confirm-password.match":"确认密码和原密码不匹配",
@@ -24,7 +26,8 @@
 
   },
   "member-list": {
-    "matches":"当前匹配到", "found":"人", "age.from":"年零从", "age.to:":"到","show":"展示",
+    "matches":"当前匹配到", "found":"人", "age-from":"年零从", "age-to":"到",
+    "show":"展示", "males":"男士", "females":"女士", "others":"其他",
     "apply-filters":"筛选", "reset-filters":"重置筛选条件", "last-active":"最近活跃",
     "newest-members":"新用户"
 

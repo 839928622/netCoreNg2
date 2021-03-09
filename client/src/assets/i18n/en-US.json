@@ -15,6 +15,8 @@
   },
   "register": {
     "signup":"Sign up", "Im":"I am a", "male":"Male", "female":"Female", "others":"Others",
+    "username":"UserName", "password":"Password","confirm-password":"Confirm Password",
+    "knownAs":"Known As", "birthday":"Date Of Birth",
     "username.required":"Please enter your username", "password.required":"Please enter your password",
     "password.minlength":"Password must be at least 8 charaters", "password.maxlength":"Password must be at least 8 charaters",
     "confirm-password.required":"Please enter your Confirm password", "confirm-password.match":" Confirm password must match your password",
@@ -24,8 +26,8 @@
 
   },
   "member-list": {
-    "matches":"Your matches", "found":"Found", "age.from":"Age from", "age.to:":"Age to","show":"Show",
-    "males":"Males","females":"Females",
+    "matches":"Your matches", "found":"Found", "age-from":"Age from", "age-to":"Age to", "show":"Show",
+    "males":"Males","females":"Females","others":"Others",
     "apply-filters":"Apply Filters", "reset-filters":"Reset Filters", "last-active":"Last Active",
     "newest-members":"Newest Members"
 
