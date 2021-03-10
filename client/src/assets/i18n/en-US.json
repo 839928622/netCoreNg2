@@ -66,5 +66,9 @@
   },
   "account-service":{
     "welcome":"you are logged in, welcome"
+  },
+  "confirm-service":{
+   "title":"Confirmation", "message":"Are you sure you wannt to do this?","btnOkText":"OK","btnCancelText":"Cancel"
+
   }
 }

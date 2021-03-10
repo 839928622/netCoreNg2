@@ -66,5 +66,10 @@
   },
   "account-service":{
     "welcome":"登录成功，欢迎您"
-  }
+  },
+  "confirm-service":{
+    "title":"确认", "message":"您确定要这么做吗?","btnOkText":"确定","btnCancelText":"取消"
+
+   }
+
 }
