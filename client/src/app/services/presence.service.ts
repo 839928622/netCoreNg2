@@ -29,7 +29,7 @@ export class PresenceService {
     this.hubConnection.on('UserIsOnline', newOnlineUsername => {
       // onlineUserList actually are online username list
       this.onlineUsers$.pipe(take(1)).subscribe((oldOnlineUserList) => {
-      this.onlineUsersSource.next([...newOnlineUsername, oldOnlineUserList]);
+      this.onlineUsersSource.next([...oldOnlineUserList, newOnlineUsername]);
       });
       this.toastr.info(newOnlineUsername + ' has connected');
     });
